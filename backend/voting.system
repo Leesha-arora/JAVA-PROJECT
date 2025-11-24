@@ -1,0 +1,64 @@
+import java.util.*;
+
+public class VotingSystem {
+
+    private static HashMap<Integer, String> candidates = new HashMap<>();
+    private static HashMap<Integer, Integer> votes = new HashMap<>();
+    private static Scanner sc = new Scanner(System.in);
+
+    public static void main(String[] args) {
+
+        candidates.put(1, "Candidate A");
+        candidates.put(2, "Candidate B");
+        candidates.put(3, "Candidate C");
+
+        votes.put(1, 0);
+        votes.put(2, 0);
+        votes.put(3, 0);
+
+        int choice;
+        do {
+            System.out.println("\n=== Voting Management System ===");
+            System.out.println("1. Show Candidates");
+            System.out.println("2. Vote");
+            System.out.println("3. Show Results");
+            System.out.println("4. Exit");
+            System.out.print("Enter your choice: ");
+
+            choice = sc.nextInt();
+
+            switch (choice) {
+                case 1 -> showCandidates();
+                case 2 -> vote();
+                case 3 -> showResults();
+                case 4 -> System.out.println("Thank you for using Voting System!");
+                default -> System.out.println("Invalid choice!");
+            }
+        } while (choice != 4);
+    }
+
+    private static void showCandidates() {
+        System.out.println("\n--- Candidates ---");
+        for (var entry : candidates.entrySet()) {
+            System.out.println(entry.getKey() + ". " + entry.getValue());
+        }
+    }
+
+    private static void vote() {
+        System.out.print("\nEnter candidate number to vote: ");
+        int id = sc.nextInt();
+        if (votes.containsKey(id)) {
+            votes.put(id, votes.get(id) + 1);
+            System.out.println("Vote recorded successfully!");
+        } else {
+            System.out.println("Invalid candidate ID!");
+        }
+    }
+
+    private static void showResults() {
+        System.out.println("\n--- Voting Results ---");
+        for (var entry : votes.entrySet()) {
+            System.out.println(candidates.get(entry.getKey()) + ": " + entry.getValue() + " votes");
+        }
+    }
+}
